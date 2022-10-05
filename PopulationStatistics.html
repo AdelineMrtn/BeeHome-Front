@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="Statistics.css">
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <title>Bee Home</title>
 </head>
 <body>
@@ -20,6 +21,30 @@
                 <div v-for="el in populationByMonth" @key="el.date">
                     population : {{el.population}} le {{el.date}}
                 </div>
+    <div class="container">
+        <div class="header"></div>
+        <div id="title">Statistiques générales</div>
+
+        <div class="buttons">
+            <div class="button">Today</div>
+            <div class="button">Week</div>
+            <div class="button">Month</div>
+        </div>
+
+        <div class="graph">
+
+        </div>
+
+        <div v-for="el in populationByWeek" @key="el.date">
+            population : {{el.population}} le {{el.date}}
+        </div>
+
+        <div v-for="el in populationByMonth" @key="el.date">
+            population : {{el.population}} le {{el.date}}
+        </div>
+
+        <div class="back_arrow">
+            <i class="uil uil-arrow-circle-left"></i>
         </div>
     </div>
 </body>

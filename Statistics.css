@@ -1,4 +1,4 @@
-html, body{
+html, body {
     background:var(--bg-color);
     font-family: 'Montserrat', sans-serif;
     scroll-behavior: smooth;
@@ -6,19 +6,34 @@ html, body{
     background-image: url('../assets/img/ruche.jpg');
 }
 
-.container{
+.container {
     display:flex;
     flex-direction: column;
     width: 95%;
 }
 
-.header{
-    
-}
-
 #title{
     font-size: 7vw;
     margin:25vw auto;
-    font-family: 'Questrial', sans-serif;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.button{
+    width:auto;
+    margin:auto  auto 10vw auto;
+    padding: 2vw 3vw;
+    background-color: #d9d9d9;
+    border-radius: 5vw;
+}
+
+.back_arrow{
+    display: flex;
+    font-size: 9vw;
+    text-align: left;
+    position: fixed; 
 }
 
