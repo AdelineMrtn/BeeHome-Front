@@ -11,7 +11,7 @@
     </div>
     <div id="body">
         <div id="demo">
-            <div>
+            <!-- <div>
                 {{lastProduction.date}}
             </div>
             par semaine<br>
@@ -21,64 +21,83 @@
             par mois<br>
             <div v-for="prodMonth in productionsByMonth" :key="prodMonth.date">
                 {{prodMonth.date}}
+            </div> -->
+
+            <div>
+                <h1>POST</h1>
+                <input type="text" v-model="productionKg">
+                <button @click="addProduction()">ADD</button>
             </div>
         </div>
     </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./moment.js"></script>
 <script>
-    
     var demo = new Vue({
         el: '#demo',
         data: {
             datas: '',
             lastProduction: '',
             productionsByWeek: '',
-            productionsByMonth: ''
+            productionsByMonth: '',
+            productionKg:''
         },
         created () {
             this.fetchData()
         },
         methods: {
-            fetchData() {
-                var requestOptions = {
-                method: 'GET',
+            addProduction(){
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                var date = new Date()
+                var raw = JSON.stringify({
+                    "date": moment(date).format('YYYY-MM-DD HH:mm:ss'),
+                    "production": this.productionKg
+                    });
+
+                var requestPOSTOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
                 redirect: 'follow'
                 };
 
-                fetch("http://localhost:3004/lastProduction", requestOptions)
-                    .then(response => response.json())
-                    .then(result => {
-                        console.log(result)
-                        this.lastProduction = result
-                    })
-                    .catch(error => console.log('error', error));
-
-                fetch("http://localhost:3004/productionsByWeek", requestOptions)
-                    .then(response => response.json())
-                    .then(result => {
-                        console.log(result)
-                        this.productionsByWeek = result
-                    })
-                    .catch(error => console.log('error', error));
-
-                fetch("http://localhost:3004/productionsByMonth", requestOptions)
-                    .then(response => response.json())
+                fetch("http://localhost:3004/addProduction", requestPOSTOptions)
+                    .then(response => response.text())
                     .then(result => {
                         console.log(result)
                         this.productionsByMonth = result
                     })
                     .catch(error => console.log('error', error));
-                
-                
-                fetch("http://localhost:3004/addProduction", requestOptions)
-                    .then(response => response.json())
-                    .then(result => {
-                        console.log(result)
-                        this.productionsByMonth = result
-                    })
-                    .catch(error => console.log('error', error));
+            },
+            fetchData() {
+                // var requestOptions = {
+                // method: 'GET',
+                // redirect: 'follow'
+                // };
+
+                // fetch("http://localhost:3004/lastProduction", requestOptions)
+                //     .then(response => response.json())
+                //     .then(result => {
+                //         this.lastProduction = result
+                //     })
+                //     .catch(error => console.log('error', error));
+
+                // fetch("http://localhost:3004/productionsByWeek", requestOptions)
+                //     .then(response => response.json())
+                //     .then(result => {
+                //         this.productionsByWeek = result
+                //     })
+                //     .catch(error => console.log('error', error));
+
+                // fetch("http://localhost:3004/productionsByMonth", requestOptions)
+                //     .then(response => response.json())
+                //     .then(result => {
+                //         this.productionsByMonth = result
+                //     })
+                //     .catch(error => console.log('error', error));
             }
         }
     })
