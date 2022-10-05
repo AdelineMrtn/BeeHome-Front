@@ -11,19 +11,19 @@
     </div>
     <div id="body">
         <div id="demo">
-            {{meteo.weather[0].main}}
+            Open wheather : {{meteo.weather[0].main}}
 
             <hr>
 
-            {{humidite.humidite}}
+            Humidite API : {{humidite.humidite}}
 
             <hr>
 
-            {{population.population}}
+            Population API : {{population.population}}
 
             <hr>
 
-            {{production.production}}
+            Production API : {{production.production}}
         </div>
     </div>
 </body>
@@ -71,7 +71,7 @@
                 })
                 .catch(error => console.log('error', error));
                 //APPEL API PRODUCTION
-                fetch("http://localhost:3003/lastProduction", requestOptions)
+                fetch("http://localhost:3004/lastProduction", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     this.production = result
@@ -79,12 +79,12 @@
                 .catch(error => console.log('error', error));
                 //APPEL API TEMPERATURE
                 fetch("http://localhost:3000/temperatures", requestOptions)
-                    .then(response => response.text())
+                    .then(response => response.json())
                     .then(result => {
                         console.log(result)
                         this.datas = result
                     })
-                    .catch(error => console.log('error', error));
+                .catch(error => console.log('error', error));
             }
         }
     })
