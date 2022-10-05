@@ -24,6 +24,10 @@
             <hr>
 
             Production API : {{production.production}}
+
+            <hr>
+
+            Température API : {{temperature.temperature}}
         </div>
     </div>
 </body>
@@ -37,7 +41,8 @@
             meteo: '',
             humidite: '',
             population:'',
-            production:''
+            production:'',
+            temperature:'',
         },
         created () {
             this.fetchData()
@@ -78,11 +83,11 @@
                 })
                 .catch(error => console.log('error', error));
                 //APPEL API TEMPERATURE
-                fetch("http://localhost:3000/temperatures", requestOptions)
+                fetch("http://localhost:3000/lastTemperature", requestOptions)
                     .then(response => response.json())
                     .then(result => {
                         console.log(result)
-                        this.datas = result
+                        this.temperature = result
                     })
                 .catch(error => console.log('error', error));
             }
