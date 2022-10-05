@@ -33,7 +33,7 @@ body {
 }
 
 .header a.active {
-  background-color: dodgerblue;
+  background-image: url('../assets/img/profil.png');
   color: white;
 }
 
@@ -55,19 +55,23 @@ body {
 }
 
 .box {
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 2vw;
   padding: 5%;
   margin: 5%;
+  background-color: #d9d9d9;
   
 }
 
 .inlineBox {
+  background-color: #d9d9d9;
   display: inline-block;
   align-content: center;
   width: 49%;
   max-height: 10%;
-  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
   border-radius: 2vw;
   padding: 5%;
 }
+
