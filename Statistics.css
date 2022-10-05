@@ -1,0 +1,23 @@
+html, body{
+    background:var(--bg-color);
+    font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+      height: 100%;
+}
+
+.container{
+    display:flex;
+    flex-direction: column;
+    width: 95%;
+}
+
+.header{
+    
+}
+
+#title{
+    font-size: 7vw;
+    margin:25vw auto;
+    font-family: 'Questrial', sans-serif;
+}
+

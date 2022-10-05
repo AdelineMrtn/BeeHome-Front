@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="Statistics.css">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet"> 
+    <title>Bee Home</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header"></div>
+        <div id="title">Statistiques générales</div>
+
+            <div v-for="el in populationByWeek" @key="el.date">
+                population : {{el.population}} le {{el.date}}
+            </div>
+
+            <div v-for="el in populationByMonth" @key="el.date">
+                population : {{el.population}} le {{el.date}}
+            </div>
+    </div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    var demo = new Vue({
+        el: '#demo',
+        data: {
+            datas: '',
+            population:'',
+            populationByWeek:'',
+            populationByMonth:''
+        },
+        created () {
+            this.fetchData()
+        },
+        methods: {
+            fetchData() {
+                var requestOptions = {
+                method: 'GET',
+                redirect: 'follow'
+                };
+                
+                //LASTPOPULATION
+                fetch("http://localhost:3002/lastPopulation", requestOptions)
+                .then(response => response.json())
+                .then(result => {console.log(result.population)
+                    this.population = result
+                })
+                .catch(error => console.log('error', error));
+
+                //POPULATIONBYWEEK
+                fetch("http://localhost:3002/populationByWeek", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result.population)
+                    this.populationByWeek = result
+                })
+                .catch(error => console.log('error', error));
+
+                //POPULATIONBYMONTH
+                fetch("http://localhost:3002/populationByMonth", requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result.population)
+                    this.populationByMonth = result
+                })
+                .catch(error => console.log('error', error));
+            }
+        }
+    })
+</script>
+</html>
