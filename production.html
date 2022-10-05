@@ -11,7 +11,17 @@
     </div>
     <div id="body">
         <div id="demo">
-            {{datas}}
+            <div>
+                {{lastProduction.date}}
+            </div>
+            par semaine<br>
+            <div v-for="prodWeek in productionsByWeek" :key="prodWeek.date">
+                {{prodWeek.date}}
+            </div>
+            par mois<br>
+            <div v-for="prodMonth in productionsByMonth" :key="prodMonth.date">
+                {{prodMonth.date}}
+            </div>
         </div>
     </div>
 </body>
@@ -32,6 +42,9 @@
         el: '#demo',
         data: {
             datas: '',
+            lastProduction: '',
+            productionsByWeek: '',
+            productionsByMonth: ''
         },
         created () {
             this.fetchData()
@@ -43,14 +56,38 @@
                 redirect: 'follow'
                 };
 
-                fetch("http://localhost:3000/production", requestOptions)
-                    .then(response => response.text())
+                fetch("http://localhost:3004/lastProduction", requestOptions)
+                    .then(response => response.json())
                     .then(result => {
                         console.log(result)
-                        this.datas = result
+                        this.lastProduction = result
+                    })
+                    .catch(error => console.log('error', error));
+
+                fetch("http://localhost:3004/productionsByWeek", requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                        this.productionsByWeek = result
+                    })
+                    .catch(error => console.log('error', error));
+
+                fetch("http://localhost:3004/productionsByMonth", requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                        this.productionsByMonth = result
                     })
                     .catch(error => console.log('error', error));
                 
+                
+                fetch("http://localhost:3004/addProduction", requestOptions)
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                        this.productionsByMonth = result
+                    })
+                    .catch(error => console.log('error', error));
 
                 // var xhttp = new XMLHttpRequest();
                 // xhttp.onreadystatechange = function () {
