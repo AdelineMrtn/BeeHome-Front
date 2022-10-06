@@ -47,6 +47,7 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./moment.js"></script>
 <script>
    var demo = new Vue({
       el: '#demo',
@@ -116,14 +117,13 @@
                 };
 
                 fetch("http://localhost:3004/addProduction", requestPOSTOptions)
-                    .then(response => response.text())
-                    .then(result => {
+                  .then((response)=> response.json())
+                    .then((result)=> {
                         console.log(result)
-                        this.productionsByMonth = result
+                        this.lastProduction = result
                     })
                     .catch(error => console.log('error', error));
-
-                this.fetchData()
+                
             },
         }
     })
