@@ -3,47 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="styles/index.css">
     <title>Bee Home</title>
 </head>
 <body>
-    <div id="header">
+  <div id="demo">
+    <div class="header">
+      <div class="header-right">
+        <a href="">
+          <i class="uil uil-user-circle icon_profil"></i>
+        </a>
+      </div>
     </div>
-    <div id="body">
-        <div id="demo">
-            <body>
-
-                <div class="header">
-                  <div class="header-right">
-                    <a href="#profile">Profil</a>
-                  </div>
-                </div>
-                
-                <div style="text-align: center;">
-                  <p>Votre ruche,</p>
-                  <h1>Honey Fan</h1>
-                  <div class="box" v-if="meteo.weather !== undefined">Open wheather : {{meteo.weather[0].main}}</div>                  
-                </div>
-                <div class="box">{{lastTemperature.temperature}}°C</div>
-                <div class="box">{{lastHumidite.humidite}}%</div>
-                <div>
-                <div class="box ">{{lastPopulation.population}} habitants</div>
-                <div class="box">{{lastProduction.production}} Kg
-                  <br>
-                  <div>
-                    <p>Ajouter une production :</p>
-                    <input type="text" v-model="productionKg">
-                    <button @click="addProduction()">ADD</button>
-                </div>
-                </div>
-                </div>
-
-                <button id="bouton-sticky">
-                  <span class="text">Stats</span>
-                </button>
-                </body>
+    
+    <div class="container">
+      <p class="pre_title">Votre ruche,</p>
+      <h1 class="title">Honey Fan</h1>
+      <div class="box weather" v-if="meteo.weather !== undefined">
+        
+        <div id="test" style="margin:0">
+          <img v-if="meteo.weather[0].main === 'Clear'" class="sun" src="./assets/img/sun.png" alt="">
+          <img v-else-if="meteo.weather[0].main === 'Clouds'" class="clouds" src="./assets/img/clouds.png" alt="">
+          <img v-else="meteo.weather[0].main === 'Rain'" class="rain" src="./assets/img/rain.png" alt="">
+          <div id="temp">
+            <p id="degre">{{meteo.main.temp}}°C</p>
+            <br>
+            <p id="meteo">{{meteo.weather[0].main}}</p>
+          </div>
         </div>
+        <p style="margin:3vw 0 1vw 2vw;font-size: 8vw;color: #545454;font-weight: 500; font-size: 5vw">Aujourd'hui</p>
+      </div>
+
+      <div class="box health">
+        <img class="ruche_img" src="./assets/img/ruche.png" alt="">
+
+        <div class="data">
+          <p id="degre">{{lastTemperature.temperature}}°C</p>
+
+          <div class="humidity">
+            <img class="drop" src="./assets/img/drop.png" alt="">
+            <p id="humidity">{{lastHumidite.humidite}} %</p>
+          </div>
+          <p id="text">Température / Humidité</p>
+        </div>
+      </div>
+        
+      <div class="bottom">
+        <div class="box population">
+          <img class="bee_img" src="./assets/img/bee.png" alt="">
+          <p id="pop_number">{{lastPopulation.population}}</p>
+          <p id="pop_text">Population<br>actuelle</p>
+        </div>
+  
+        <div class="box production">
+          <img class="honey_img" src="./assets/img/honey.png" alt="">
+          <div style="display:flex;flex-direction:row">
+            <p id="production_number"> {{lastProduction.production}} </p>
+            <p style="font-size: 8vw;color: #545454;font-weight: 500; font-size: 5vw;">Kg</p>
+          </div>
+          <p id="production_text">Production</p>
+        </div>
+      </div>
+
+      <div class="honey_product">
+        <p>Ajouter une production :</p>
+        <input type="text" v-model="productionKg">
+        <button @click="addProduction()">ADD</button>
+      </div>
+
+      <button id="bouton-sticky">
+        <span class="text">
+          <i class="uil uil-graph-bar icon_graph"></i>
+        </span>
+      </button> 
+
     </div>
+  </div>   
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
