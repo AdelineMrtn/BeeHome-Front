@@ -33,7 +33,7 @@ body {
 }
 
 .header a.active {
-  background-image: url('../assets/img/profil.png');
+  background: url('../assets/img/profil.png');
   color: white;
 }
 

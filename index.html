@@ -24,12 +24,12 @@
                   <h1>Honey Fan</h1>
                   
                 </div>
-                <div class="box">Salut<br>Salut<br>Salut<br>Salut<br></div>
-                <div class="box">Salut<br>Salut<br>Salut<br>Salut<br></div>
+                <div class="box">{{lastTemperature.temperature}}</div>
+                <div class="box">{{lastHumidite.humidite}}</div>
                 <div>
                   <div style="margin: 5%">
-                    <div class="inlineBox ">Salut<br>Salut<br>Salut<br>Salut</div>
-                    <div class="inlineBox">Salut<br>Salut<br>Salut<br>Salut<br></div>
+                    <div class="inlineBox ">{{lastPopulation.population}}</div>
+                    <div class="inlineBox">{{lastProduction.production}}</div>
                   </div>
                 </div>
 
@@ -42,6 +42,58 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-<!-- <script src="D:\Cours\VueJs\github\evtnantes\moment.js"></script>     -->
+<script>
+   var demo = new Vue({
+      el: '#demo',
+      data: {
+        lastTemperature: {},
+        lastHumidite: {},
+        lastPopulation: {},
+        lastProduction: {}
+      },
+      created () {
+          this.fetchData()
+        },
+        methods: {
+          fetchData() {
+            var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+            };
+            
+            //API LAST TEMPERATURE
+            fetch("http://localhost:3000/lastTemperature", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastTemperature = result
+              })
+              .catch(error => console.log('error', error));
+            
+            //API LAST HUMIDITE
+            fetch("http://localhost:3001/lastHumidite", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastHumidite = result
+              })
+              .catch(error => console.log('error', error));
+
+            //API LAST POPULATION
+            fetch("http://localhost:3002/lastPopulation", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastPopulation = result
+              })
+              .catch(error => console.log('error', error));
+
+            //API LAST POPULATION
+            fetch("http://localhost:3004/lastProduction", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastProduction = result
+              })
+              .catch(error => console.log('error', error));
+          }
+        }
+    })
+</script>
 </html>

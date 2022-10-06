@@ -17,17 +17,7 @@
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-<!-- <script src="D:\Cours\VueJs\github\evtnantes\moment.js"></script>     -->
 <script>
-    var apiURL = 'http://localhost:3000/temperatures'
-    var httpHeaders = {'Access-Control-Allow-Origin': '*'}
-    var myHeaders = new Headers(httpHeaders);
-    var config = {
-        method: 'GET',
-        // headers: myHeaders,
-        mode: 'cors',
-    };
     var demo = new Vue({
         el: '#demo',
         data: {
@@ -50,114 +40,8 @@
                         this.datas = result
                     })
                     .catch(error => console.log('error', error));
-                
-
-                // var xhttp = new XMLHttpRequest();
-                // xhttp.onreadystatechange = function () {
-                //     if (this.readyState == 4 && this.status == 200){
-                //         console.log(xhttp.responseText);
-                //         this.datas = xhttp.responseText
-                //     }
-                // }
-                // xhttp.open("GET", "http://localhost:3000/temperatures", true)
-                // xhttp.send()
             }
         }
     })
 </script>
-    <!-- <style>
-        html {
-            background-color: rgb(88, 88, 88);
-            margin: 0px;
-            padding: 0px;
-            font-family: 'Helvetica', Arial, sans-serif;
-        }
-        
-        #header {
-            color: #4CAF50;
-            text-align: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 30px;
-            ;
-            width: 100%;
-            position: fixed;
-        }
-        
-        #demo {
-            width: 100em;
-            display: flex;
-            flex-direction: row;
-        }
-        
-        .carte {
-            background-color: rgb(236, 236, 236);
-            width: 300px;
-            border-radius: 4px;
-            margin: 15px;
-        }
-        
-        #Carte_header {
-            color: white;
-            padding: 13px;
-            font-size: 20px;
-            ;
-            background-color: #4CAF50;
-            border-radius: 4px;
-            text-align: center;
-            height: 100px;
-        }
-        
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        
-        #Carte_body {
-            text-align: left;
-            padding: 10px;
-            height: 240px;
-        }
-        
-        #media {
-            position: relative;
-            bottom: 60px;
-            left: 160px;
-        }
-        
-        #buttonDescr {
-            background-color: #4CAF50;
-            /* Green */
-            border: none;
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 4px 2px;
-            cursor: pointer;
-        }
-        
-        #Carte_footer {
-            position: relative;
-            bottom: 40px;
-        }
-        
-        #Carte_description {
-            display: true;
-            background-color: rgb(241, 241, 241);
-            width: 300px;
-            border-radius: 4px;
-            height: 130px;
-        }
-        
-        
-        li {
-            margin-top: 130px;
-            ;
-            list-style: none;
-            flex-wrap: wrap;
-            ;
-        }
-    </style> -->
 </html>
