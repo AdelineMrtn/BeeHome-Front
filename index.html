@@ -3,94 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="styles/index.css">
     <title>Bee Home</title>
 </head>
 <body>
     <div id="header">
-        <h1>Bee Home</h1>
     </div>
     <div id="body">
         <div id="demo">
-            Open wheather : {{meteo.weather[0].main}}
+            <body>
 
-            <hr>
+                <div class="header">
+                  <div class="header-right">
+                    <a href="#profile">Profil</a>
+                  </div>
+                </div>
+                
+                <div style="text-align: center;">
+                  <p>Votre ruche,</p>
+                  <h1>Honey Fan</h1>
+                  <div class="box">Open wheather : {{meteo.weather[0].main}}</div>                  
+                </div>
+                <div class="box">{{lastTemperature.temperature}}°C</div>
+                <div class="box">{{lastHumidite.humidite}}%</div>
+                <div>
+                <div class="box ">{{lastPopulation.population}} habitants</div>
+                <div class="box">{{lastProduction.production}} Kg
+                  <br>
+                  <div>
+                    <p>Ajouter une production :</p>
+                    <input type="text" v-model="productionKg">
+                    <button @click="addProduction()">ADD</button>
+                </div>
+                </div>
+                </div>
 
-            Humidite API : {{humidite.humidite}}
-
-            <hr>
-
-            Population API : {{population.population}}
-
-            <hr>
-
-            Production API : {{production.production}}
-
-            <hr>
-
-            Température API : {{temperature.temperature}}
+                <button id="bouton-sticky">
+                  <span class="text">Stats</span>
+                </button>
+                </body>
         </div>
     </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./moment.js"></script>
 <script>
-    var demo = new Vue({
-        el: '#demo',
-        data: {
-            datas: '',
-            meteo: '',
-            humidite: '',
-            population:'',
-            production:'',
-            temperature:'',
-        },
-        created () {
-            this.fetchData()
+   var demo = new Vue({
+      el: '#demo',
+      data: {
+        meteo:{},
+        lastTemperature: {},
+        lastHumidite: {},
+        lastPopulation: {},
+        lastProduction: {},
+        productionKg:''
+      },
+      created () {
+          this.fetchData()
         },
         methods: {
-            fetchData() {
-                var requestOptions = {
-                method: 'GET',
-                redirect: 'follow'
-                };
-                // APPEL API OPEN WEATHER MAPS
-                fetch("https://api.openweathermap.org/data/2.5/weather?q=Nantes&appid=4d344860a813f0165f921f589cb7285d&units=metric&lang=fr", requestOptions)
+          fetchData() {
+            var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+            };
+            
+            //API LAST TEMPERATURE
+            fetch("http://localhost:3000/lastTemperature", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastTemperature = result
+              })
+              .catch(error => console.log('error', error));
+            
+            //API LAST HUMIDITE
+            fetch("http://localhost:3001/lastHumidite", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastHumidite = result
+              })
+              .catch(error => console.log('error', error));
+
+            //API LAST POPULATION
+            fetch("http://localhost:3002/lastPopulation", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastPopulation = result
+              })
+              .catch(error => console.log('error', error));
+
+            //API LAST POPULATION
+            fetch("http://localhost:3004/lastProduction", requestOptions)
+              .then(response => response.json())
+              .then(result => {
+                  this.lastProduction = result
+              })
+              .catch(error => console.log('error', error));
+
+            // APPEL API OPEN WEATHER MAPS
+            fetch("https://api.openweathermap.org/data/2.5/weather?q=Nantes&appid=4d344860a813f0165f921f589cb7285d&units=metric&lang=fr", requestOptions)
                 .then(response => response.json())
                 .then(result => {
                     this.meteo = result
                 })
                 .catch(error => console.log('error', error));
-                // APPEL API HUMIDITE
-                fetch("http://localhost:3001/lastHumidite", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    this.humidite = result
-                })
-                .catch(error => console.log('error', error));
+          },
+          addProduction(){
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                var date = new Date()
+                var raw = JSON.stringify({
+                    "date": moment(date).format('YYYY-MM-DD HH:mm:ss'),
+                    "production": this.productionKg
+                    });
 
-                //APPEL API POPULATION
-                fetch("http://localhost:3002/lastPopulation", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    this.population = result
-                })
-                .catch(error => console.log('error', error));
-                //APPEL API PRODUCTION
-                fetch("http://localhost:3004/lastProduction", requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    this.production = result
-                })
-                .catch(error => console.log('error', error));
-                //APPEL API TEMPERATURE
-                fetch("http://localhost:3000/lastTemperature", requestOptions)
-                    .then(response => response.json())
-                    .then(result => {
+                var requestPOSTOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+                };
+
+                fetch("http://localhost:3004/addProduction", requestPOSTOptions)
+                  .then((response)=> response.json())
+                    .then((result)=> {
                         console.log(result)
-                        this.temperature = result
+                        this.lastProduction = result
                     })
-                .catch(error => console.log('error', error));
-            }
+                    .catch(error => console.log('error', error));
+            },
         }
     })
 </script>
