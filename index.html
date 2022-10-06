@@ -64,13 +64,13 @@
             <p style="font-size: 8vw;color: #545454;font-weight: 500; font-size: 5vw;">Kg</p>
           </div>
           <p id="production_text">Production</p>
+          <div class="honey_product">
+            <p>Ajouter une production :</p>
+            <input style="width: 60px;" type="text" v-model="productionKg">
+            <br>
+            <button @click="addProduction()">Ajouter</button>
+          </div>
         </div>
-      </div>
-
-      <div class="honey_product">
-        <p>Ajouter une production :</p>
-        <input type="text" v-model="productionKg">
-        <button @click="addProduction()">ADD</button>
       </div>
 
       <button id="bouton-sticky">
