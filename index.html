@@ -24,13 +24,18 @@
                   <h1>Honey Fan</h1>
                   
                 </div>
-                <div class="box">{{lastTemperature.temperature}}</div>
-                <div class="box">{{lastHumidite.humidite}}</div>
+                <div class="box">{{lastTemperature.temperature}}°C</div>
+                <div class="box">{{lastHumidite.humidite}}%</div>
                 <div>
-                  <div style="margin: 5%">
-                    <div class="inlineBox ">{{lastPopulation.population}}</div>
-                    <div class="inlineBox">{{lastProduction.production}}</div>
-                  </div>
+                <div class="box ">{{lastPopulation.population}} habitants</div>
+                <div class="box">{{lastProduction.production}} Kg
+                  <br>
+                  <div>
+                    <p>Ajouter une production :</p>
+                    <input type="text" v-model="productionKg">
+                    <button @click="addProduction()">ADD</button>
+                </div>
+                </div>
                 </div>
 
                 <button id="bouton-sticky">
@@ -49,7 +54,8 @@
         lastTemperature: {},
         lastHumidite: {},
         lastPopulation: {},
-        lastProduction: {}
+        lastProduction: {},
+        productionKg:''
       },
       created () {
           this.fetchData()
@@ -92,7 +98,33 @@
                   this.lastProduction = result
               })
               .catch(error => console.log('error', error));
-          }
+          },
+          addProduction(){
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                var date = new Date()
+                var raw = JSON.stringify({
+                    "date": moment(date).format('YYYY-MM-DD HH:mm:ss'),
+                    "production": this.productionKg
+                    });
+
+                var requestPOSTOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+                };
+
+                fetch("http://localhost:3004/addProduction", requestPOSTOptions)
+                    .then(response => response.text())
+                    .then(result => {
+                        console.log(result)
+                        this.productionsByMonth = result
+                    })
+                    .catch(error => console.log('error', error));
+
+                this.fetchData()
+            },
         }
     })
 </script>
