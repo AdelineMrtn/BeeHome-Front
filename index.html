@@ -22,7 +22,7 @@
                 <div style="text-align: center;">
                   <p>Votre ruche,</p>
                   <h1>Honey Fan</h1>
-                  <div class="box">Open wheather : {{meteo.weather[0].main}}</div>                  
+                  <div class="box" v-if="meteo.weather !== undefined">Open wheather : {{meteo.weather[0].main}}</div>                  
                 </div>
                 <div class="box">{{lastTemperature.temperature}}°C</div>
                 <div class="box">{{lastHumidite.humidite}}%</div>
