@@ -90,7 +90,6 @@ html, body {
   display: flex;
   flex-direction: column;
   margin:0 auto;
-  text-align: right;
 }
 
 #test {
@@ -106,6 +105,11 @@ html, body {
 }
 
 .sun{
+  height:25vw;
+  margin: auto auto auto 2vw;
+}
+
+.clouds{
   height:25vw;
   margin: auto auto auto 2vw;
 }
@@ -155,11 +159,12 @@ html, body {
   font-size: 8vw;
   color: #545454;
   font-weight: 600;
+  margin: 4vw 0vw;
 }
 
 .drop{
   height:10vw;
-  margin: auto 2vw auto 2vw;
+  margin: 3vw 2vw auto 2vw;
 }
 
 .bottom{
